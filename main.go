@@ -2,10 +2,11 @@ package main
 
 import (
 	"api-alura/database"
-	"fmt"
+	"api-alura/routes"
 )
 
 func main() {
-	fmt.Println("Iniciando projeto do back-end Alura")
 	database.GetDatabase()
+
+	routes.HandleRequest()
 }
