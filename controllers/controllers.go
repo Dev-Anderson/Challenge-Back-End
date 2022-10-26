@@ -35,3 +35,16 @@ func ExibeUmVideo(c *gin.Context) {
 
 	c.JSON(http.StatusOK, video)
 }
+
+func CriarVideo(c *gin.Context) {
+	var video models.Video
+	if err := c.ShouldBindJSON(&video); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	database.DB.Create(&video)
+	c.JSON(http.StatusOK, video)
+}

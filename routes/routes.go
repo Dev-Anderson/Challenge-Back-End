@@ -11,5 +11,6 @@ func HandleRequest() {
 	r.GET("/", controllers.Teste)
 	r.GET("/videos", controllers.ExibeTodosVideos)
 	r.GET("/videos/:id", controllers.ExibeUmVideo)
+	r.POST("/videos", controllers.CriarVideo)
 	r.Run()
 }
