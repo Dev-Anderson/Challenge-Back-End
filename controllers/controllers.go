@@ -10,7 +10,7 @@ import (
 
 func Teste(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"teste": "Anderson fazendo teste",
+		"teste": "Teste o Live xxxx do projeto",
 	})
 }
 
@@ -64,4 +64,23 @@ func AlterarUmVideo(c *gin.Context) {
 
 	database.DB.Model(&video).UpdateColumns(video)
 	c.JSON(http.StatusOK, video)
+}
+
+func DeletaVideo(c *gin.Context) {
+	var video []models.Video
+	id := c.Params.ByName("id")
+	database.DB.First(&video, id)
+
+	if err := c.ShouldBindJSON(&video); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Vídeo não encontrado para exclusão",
+		})
+		return
+	}
+
+	database.DB.Delete(&video, id)
+
+	c.JSON(http.StatusOK, gin.H{
+		"Data": "Vídeo deletado com sucesso",
+	})
 }
