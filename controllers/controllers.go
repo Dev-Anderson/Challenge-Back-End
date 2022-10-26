@@ -48,3 +48,20 @@ func CriarVideo(c *gin.Context) {
 	database.DB.Create(&video)
 	c.JSON(http.StatusOK, video)
 }
+
+func AlterarUmVideo(c *gin.Context) {
+	// var video []models.Video
+	var video models.Video
+	id := c.Params.ByName("id")
+	database.DB.First(&video, id)
+
+	if err := c.ShouldBindJSON(&video); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	database.DB.Model(&video).UpdateColumns(video)
+	c.JSON(http.StatusOK, video)
+}

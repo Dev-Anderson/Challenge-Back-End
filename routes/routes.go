@@ -12,5 +12,6 @@ func HandleRequest() {
 	r.GET("/videos", controllers.ExibeTodosVideos)
 	r.GET("/videos/:id", controllers.ExibeUmVideo)
 	r.POST("/videos", controllers.CriarVideo)
+	r.PATCH("/videos/:id", controllers.AlterarUmVideo)
 	r.Run()
 }
