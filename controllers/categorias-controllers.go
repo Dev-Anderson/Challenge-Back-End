@@ -30,7 +30,7 @@ func ExibeUmaCaterogia(c *gin.Context) {
 	c.JSON(http.StatusOK, categoria)
 }
 
-func CriarCateria(c *gin.Context) {
+func CriarCategoria(c *gin.Context) {
 	var categoria models.Categoria
 	if err := c.ShouldBindJSON(&categoria); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

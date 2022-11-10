@@ -25,7 +25,7 @@ func ConfigRoutes(router *gin.Engine) *gin.Engine {
 		{
 			categorias.GET("/", controllers.ExibeTodasCategorias)
 			categorias.GET("/:id", controllers.ExibeUmaCaterogia)
-			categorias.POST("/", controllers.CriarCateria)
+			categorias.POST("/", controllers.CriarCategoria)
 			categorias.PATCH("/:id", controllers.AlterarCategoria)
 			categorias.DELETE("/:id", controllers.DeletaCategoria)
 		}
