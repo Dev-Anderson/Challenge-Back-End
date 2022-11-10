@@ -8,12 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Teste(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"teste": "Teste o Live xxxx do projeto",
-	})
-}
-
 func ExibeTodosVideos(c *gin.Context) {
 	var videos []models.Video
 	database.DB.Find(&videos)
@@ -50,7 +44,6 @@ func CriarVideo(c *gin.Context) {
 }
 
 func AlterarUmVideo(c *gin.Context) {
-	// var video []models.Video
 	var video models.Video
 	id := c.Params.ByName("id")
 	database.DB.First(&video, id)
@@ -67,20 +60,13 @@ func AlterarUmVideo(c *gin.Context) {
 }
 
 func DeletaVideo(c *gin.Context) {
-	var video []models.Video
+	var videos []models.Video
+
 	id := c.Params.ByName("id")
-	database.DB.First(&video, id)
 
-	if err := c.ShouldBindJSON(&video); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Vídeo não encontrado para exclusão",
-		})
-		return
-	}
-
-	database.DB.Delete(&video, id)
+	database.DB.Delete(&videos, id)
 
 	c.JSON(http.StatusOK, gin.H{
-		"Data": "Vídeo deletado com sucesso",
+		"data": "Vídeo deletado com sucesso",
 	})
 }

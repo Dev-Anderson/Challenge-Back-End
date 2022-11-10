@@ -2,11 +2,12 @@ package main
 
 import (
 	"api-alura/database"
-	"api-alura/routes"
+	"api-alura/server"
 )
 
 func main() {
 	database.GetDatabase()
 
-	routes.HandleRequest()
+	s := server.NewServer()
+	s.Run()
 }

@@ -16,32 +16,23 @@ var (
 	err error
 )
 
-type env struct {
-	host     string
-	user     string
-	pass     string
-	database string
-}
-
 func GetDatabase() {
 	err := godotenv.Load()
+	e := models.Env{}
 	if err != nil {
 		panic(err)
 	}
 
-	var e = env{}
+	e.Host = os.Getenv("HOST")
+	e.User = os.Getenv("USER")
+	e.Pass = os.Getenv("PASS")
+	e.Database = os.Getenv("DATABASE")
 
-	e.host = os.Getenv("HOST")
-	e.user = os.Getenv("USER")
-	e.pass = os.Getenv("PASS")
-	e.database = os.Getenv("DATABASE")
-
-	conexao := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable", e.host, e.user, e.pass, e.database)
-	// conexao := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", e.host, e.user, e.pass, e.database, e.port)
+	conexao := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable", e.Host, e.User, e.Pass, e.Database)
 	DB, err = gorm.Open(postgres.Open(conexao))
 	if err != nil {
 		log.Fatal("Falha ao conectar com o banco de dados")
 	}
 
-	DB.AutoMigrate(&models.Video{})
+	DB.AutoMigrate(&models.Video{}, &models.Categoria{})
 }
